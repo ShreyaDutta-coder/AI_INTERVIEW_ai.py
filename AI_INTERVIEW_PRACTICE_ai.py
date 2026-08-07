@@ -7,7 +7,46 @@ from gtts import gTTS
 from io import BytesIO
 
 st.set_page_config(page_title="AI Interviewer", page_icon="🎤", layout="wide")
+#<<<sidebar>>>
+with st.sidebar:
+    st.markdown("### Interview Settings")
+    job_role= st.text_input(
+        "Job Role",
+        placeholder= "e.g, Dat Analyst",
+        value= st.session_state.get("role", "Data Analyst")
+    )
+    
+    st.session_state.role= job_role
 
+exp_level = st.selectbox(
+    "Experience Level",
+    ["Fresher", "Intermediate", "Experienced","Executive"],
+    index=0
+)
+ difficulty = st.selectbox(
+        "Difficulty",
+        ["Easy", "Medium", "Hard"],
+        index=0
+    )
+
+    q_types = st.multiselect(
+        "Question Types",
+        ["Technical", "HR", "Behavioral", "Situational", "Case Study"],
+        default=["Technical", "HR"]
+    )
+
+    num_q = st.slider(
+        "Number of Questions",
+        min_value=1,
+        max_value=20,
+        value=10,
+        step=1
+    )
+
+    st.markdown("---")
+    st.caption("AI-generated content may contain inaccuracies. Always verify important info.")
+    
+    
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 if not api_key:
@@ -126,7 +165,14 @@ def extract_text(file):
 
 if resume_file and st.button("🚀 Generate My Interview Plan"):
     resume_text = extract_text(resume_file)
-    prompt = f"Role {st.session_state.role} Resume {resume_text} Give 15 questions one per line"
+    prompt = f"""
+    Role: {job_role}, 
+    Experience: {exp_level}, 
+    Difficulty: {difficulty},
+    Question Types: {', '.join(q_types)},
+    Resume: {resume_text},
+    Give {num_q} questions one per line for {job_role} as {exp_level} level.
+     """
     res = model.generate_content(prompt)
     st.session_state.questions = [q for q in res.text.split('\n') if len(q.strip())>10]
     st.session_state.current_q = 0
