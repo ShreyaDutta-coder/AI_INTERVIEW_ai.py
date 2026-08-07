@@ -10,12 +10,6 @@ st.set_page_config(page_title="AI Interviewer", page_icon="🎤", layout="wide")
 #<<<sidebar>>>
 st.sidebar.markdown("### Interview Settings")
 
-job_role = st.sidebar.selectbox(
-    "Job Role",
-    ["Data Analyst", "Software Engineer", "Product Manager", "Marketing Intern", "Business Analyst", "HR Manager"],
-    index=0
-)
-st.session_state.role = job_role
 
 exp_level = st.sidebar.selectbox(
     "Experience Level",
