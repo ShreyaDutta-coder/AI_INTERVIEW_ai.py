@@ -23,19 +23,19 @@ exp_level = st.selectbox(
     ["Fresher", "Intermediate", "Experienced","Executive"],
     index=0
 )
- difficulty = st.selectbox(
+difficulty = st.selectbox(
         "Difficulty",
         ["Easy", "Medium", "Hard"],
         index=0
     )
 
-    q_types = st.multiselect(
+q_types = st.multiselect(
         "Question Types",
         ["Technical", "HR", "Behavioral", "Situational", "Case Study"],
         default=["Technical", "HR"]
     )
 
-    num_q = st.slider(
+num_q = st.slider(
         "Number of Questions",
         min_value=1,
         max_value=20,
