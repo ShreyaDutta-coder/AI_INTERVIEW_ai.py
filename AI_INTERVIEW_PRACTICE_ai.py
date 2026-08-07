@@ -8,40 +8,39 @@ from io import BytesIO
 
 st.set_page_config(page_title="AI Interviewer", page_icon="🎤", layout="wide")
 #<<<sidebar>>>
-with st.sidebar:
-    st.markdown("### Interview Settings")
-    job_role= st.text_input(
-        "Job Role",
-        placeholder= "e.g, Dat Analyst",
-        value= st.session_state.get("role", "Data Analyst")
-    )
-    
-    st.session_state.role= job_role
+st.sidebar.markdown("### Interview Settings")
 
-exp_level = st.selectbox(
-    "Experience Level",
-    ["Fresher", "Intermediate", "Experienced","Executive"],
+job_role = st.sidebar.selectbox(
+    "Job Role",
+    ["Data Analyst", "Software Engineer", "Product Manager", "Marketing Intern", "Business Analyst", "HR Manager"],
     index=0
 )
-difficulty = st.selectbox(
-        "Difficulty",
-        ["Easy", "Medium", "Hard"],
-        index=0
-    )
+st.session_state.role = job_role
 
-q_types = st.multiselect(
-        "Question Types",
-        ["Technical", "HR", "Behavioral", "Situational", "Case Study"],
-        default=["Technical", "HR"]
-    )
+exp_level = st.sidebar.selectbox(
+    "Experience Level",
+    ["Fresher", "Intermediate", "Experienced", "Executive"],
+    index=0
+)
 
-num_q = st.slider(
-        "Number of Questions",
-        min_value=1,
-        max_value=20,
-        value=10,
-        step=1
-    )
+difficulty = st.sidebar.selectbox(
+    "Difficulty",
+    ["Easy", "Medium", "Hard"],
+    index=0
+)
+
+q_types = st.sidebar.multiselect(
+    "Question Types",
+    ["Technical", "HR", "Behavioral", "Situational", "Case Study"],
+    default=["Technical", "HR"]
+)
+
+num_q = st.sidebar.slider(
+    "Number of Questions",
+    min_value=1,
+    max_value=20,
+    value=10
+)
 
 st.markdown("---")
 st.caption("AI-generated content may contain inaccuracies. Always verify important info.")
