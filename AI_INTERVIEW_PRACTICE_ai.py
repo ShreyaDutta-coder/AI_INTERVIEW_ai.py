@@ -43,8 +43,8 @@ num_q = st.slider(
         step=1
     )
 
-    st.markdown("---")
-    st.caption("AI-generated content may contain inaccuracies. Always verify important info.")
+st.markdown("---")
+st.caption("AI-generated content may contain inaccuracies. Always verify important info.")
     
     
 load_dotenv()
