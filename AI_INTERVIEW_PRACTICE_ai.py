@@ -159,13 +159,13 @@ def extract_text(file):
 if resume_file and st.button("🚀 Generate My Interview Plan"):
     resume_text = extract_text(resume_file)
     prompt = f"""
-    Role: {job_role}, 
-    Experience: {exp_level}, 
+    Role: {st.session_state.role},
+    Experience: {exp_level},
     Difficulty: {difficulty},
     Question Types: {', '.join(q_types)},
-    Resume: {resume_text},
-    Give {num_q} questions one per line for {job_role} as {exp_level} level.
-     """
+    Resume: {resume_text[:3000]},
+    Give {num_q} questions for {st.session_state.role} as {exp_level} level with {difficulty} difficulty.
+    """
     res = model.generate_content(prompt)
     st.session_state.questions = [q for q in res.text.split('\n') if len(q.strip())>10]
     st.session_state.current_q = 0
